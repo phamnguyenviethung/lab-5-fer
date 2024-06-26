@@ -6,6 +6,7 @@ import Update from "./pages/Update";
 import Contact from "./pages/Contact";
 import Details from "./pages/Details";
 import Add from "./pages/Add";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Routes>
         <Route element={<Home />} path="/" />
         <Route element={<Add />} path="/add" />
+        <Route element={<Dashboard />} path="/dashboard" />
         <Route element={<Details />} path="/staff/:id" />
         <Route element={<Update />} path="/staff/:id/edit" />
         <Route element={<Contact />} path="/contact" />

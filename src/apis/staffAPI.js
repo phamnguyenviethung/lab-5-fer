@@ -21,7 +21,7 @@ axiosInstance.interceptors.response.use(
 
 const staffAPI = {
   getAll() {
-    return axiosInstance.get("/");
+    return axiosInstance.get("?sortBy=age&order=desc");
   },
   getOne(staffID) {
     return axiosInstance.get(`/${staffID}`);

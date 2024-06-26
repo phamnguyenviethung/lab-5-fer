@@ -10,13 +10,12 @@ const StaffCard = ({ data }) => {
       sx={{
         display: "flex",
         justifyContent: "center",
+        minHeight: "400px",
       }}
     >
       <Stack
-        width={{
-          xs: "100%",
-          md: "30%",
-        }}
+        height="100%"
+        width="100%"
         p={2}
         direction={"column"}
         sx={{
@@ -44,11 +43,27 @@ const StaffCard = ({ data }) => {
         </Box>
         <Box flex="2" textAlign="center" fontSize="1.5rem">
           <Box as="p">{data.id}</Box>
-          <Box as="p" fontWeight={600} color="primary.main">
+          <Box
+            as="p"
+            fontWeight={600}
+            color="primary.main"
+            fontSize={{
+              xs: "1rem",
+              lg: "1.5rem",
+            }}
+          >
             {data.name}
           </Box>
           <Box as="p">{data.age}</Box>
-          <Box as="p">{data.address}</Box>
+          <Box
+            as="p"
+            fontSize={{
+              xs: "0.9rem",
+              lg: "1rem",
+            }}
+          >
+            {data.address}
+          </Box>
           <Box as="p">{dayjs(data.createdAt).format("DD/MM/YYYY")}</Box>
         </Box>
       </Stack>
