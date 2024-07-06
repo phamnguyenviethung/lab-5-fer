@@ -21,22 +21,15 @@ const Navbar = () => {
             fontWeight: 700,
           }}
         >
-          HUNG
+          LAPTOP
         </Box>
       </Box>
       <Stack flex="2" direction="row" spacing={2}>
         <MUILink to="/" component={Link} sx={{ textDecoration: "none" }}>
           Home
         </MUILink>
-        <MUILink
-          to="/dashboard"
-          component={Link}
-          sx={{ textDecoration: "none" }}
-        >
-          Dashboard
-        </MUILink>
-        <MUILink to="/contact" component={Link} sx={{ textDecoration: "none" }}>
-          Contact
+        <MUILink to="/add" component={Link} sx={{ textDecoration: "none" }}>
+          Add new
         </MUILink>
       </Stack>
     </Box>

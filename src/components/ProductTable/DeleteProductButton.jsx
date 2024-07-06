@@ -7,15 +7,14 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import Slide from "@mui/material/Slide";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Box } from "@mui/material";
-import staffAPI from "../apis/staffAPI";
+import { useDeleteProductMutation } from "../../redux/productAPI";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="up" ref={ref} {...props} />;
+  return <Slide direction="down" ref={ref} {...props} />;
 });
 
-export default function DeleteDialog({ id }) {
+function DeleteProductButton({ id, name }) {
+  const [deleteProductAPI, { isLoading }] = useDeleteProductMutation();
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -26,23 +25,23 @@ export default function DeleteDialog({ id }) {
     setOpen(false);
   };
 
-  const handleClick = async () => {
+  const handleSubmit = async () => {
     try {
-      await staffAPI.delete(id);
+      const res = await deleteProductAPI(id);
+      if (res.error) throw res.error.data;
       alert("success");
       handleClose();
-      window.location.reload();
     } catch (error) {
+      alert("failed");
       console.log(error);
-      alert("error");
     }
   };
 
   return (
     <>
-      <Box sx={{ cursor: "pointer" }}>
-        <DeleteIcon onClick={handleClickOpen} color="primary" />
-      </Box>
+      <Button color="error" variant="contained" onClick={handleClickOpen}>
+        Delete
+      </Button>
       <Dialog
         open={open}
         TransitionComponent={Transition}
@@ -50,17 +49,26 @@ export default function DeleteDialog({ id }) {
         onClose={handleClose}
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle>Thông báo</DialogTitle>
+        <DialogTitle>Xoá sản phẩm</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-slide-description">
-            Bạn có muốn xoá
+            Bạn có muốn xoá sản phẩm <b>{name}</b>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}>Huỷ</Button>
-          <Button onClick={handleClick}>Xoá</Button>
+          <Button onClick={handleClose} color="error" disabled={isLoading}>
+            Huỷ
+          </Button>
+          <Button
+            onClick={handleSubmit}
+            variant="contained"
+            disabled={isLoading}
+          >
+            Xác nhận
+          </Button>
         </DialogActions>
       </Dialog>
     </>
   );
 }
+export default DeleteProductButton;

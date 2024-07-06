@@ -1,13 +1,19 @@
 import { Box } from "@mui/material";
-import StaffInfoForm from "../components/StaffInfoForm";
+import ProductTable from "../components/ProductTable";
+import ProductForm from "../components/ProductForm";
 
 const Add = () => {
   return (
-    <Box>
-      <Box mb={4} as="h4">
-        Update staff
+    <Box
+      sx={{
+        width: "100%",
+      }}
+    >
+      <Box component="h1" textAlign="center" mb={4}>
+        Thêm sản phẩm
       </Box>
-      <StaffInfoForm />
+      <ProductForm />
+      <ProductTable />
     </Box>
   );
 };

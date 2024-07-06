@@ -1,24 +1,28 @@
+import { Container } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
-import { Container } from "@mui/material";
-import Navbar from "./components/Navbar";
-import Update from "./pages/Update";
-import Contact from "./pages/Contact";
-import Details from "./pages/Details";
+import { useDispatch } from "react-redux";
+import { updateData } from "./redux/productSlice";
+import { useGetAllProductQuery } from "./redux/productAPI";
+import { useEffect } from "react";
+import ProductDetail from "./pages/ProductDetail";
 import Add from "./pages/Add";
-import Dashboard from "./pages/Dashboard";
-
+import Navbar from "./components/Navbar";
+import Edit from "./pages/Edit";
 function App() {
+  const { data, isLoading, isError } = useGetAllProductQuery();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(updateData({ data, isLoading, isError }));
+  }, [data, dispatch, isLoading, isError]);
   return (
     <Container>
       <Navbar />
       <Routes>
-        <Route element={<Home />} path="/" />
-        <Route element={<Add />} path="/add" />
-        <Route element={<Dashboard />} path="/dashboard" />
-        <Route element={<Details />} path="/staff/:id" />
-        <Route element={<Update />} path="/staff/:id/edit" />
-        <Route element={<Contact />} path="/contact" />
+        <Route path="/" element={<Home />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/add" element={<Add />} />
+        <Route path="/product/edit/:id" element={<Edit />} />
       </Routes>
     </Container>
   );
